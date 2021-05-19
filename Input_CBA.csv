@@ -1,0 +1,33 @@
+General,unit,description,lower,median,upper,distribution,variable
+Discountrate,digit,discountrate,1,,5,posnorm,discount_rate
+Desired coefficient of variation (in percent),digit,coeff. variation,5,,15,posnorm,var_CV
+Monitoring time horizon,years,years of production,10,,10,const,n_years
+Production area,ha,total area of the nursery field,8,,8,const,production_area
+Chance of a year presenting high-risk conditions,prob,Chance of a year presenting high-risk conditions,0.4,,0.6,tnorm_0_1,chance_high_risk
+Initial investment General Monitoring,Euro,initial investment costs to enable general monitoring,100,,200,posnorm,Initial_investment_G
+Initial investment Improved Monitoring,Euro,initial investment costs to enable improved monitoring,200,,500,posnorm,Initial_investment_I
+Initial investment Sensor Monitoring,Euro,initial investment costs to enable sensor monitoring,18000,,100000,posnorm,Initial_investment_S
+Additional investments General Monitoring,Euro,additional costs to enable general monitoring,50,,100,posnorm,additional_investment_G
+Additional investments Improved Monitoring,Euro,additional costs to enable improved monitoring,50,,100,posnorm,additional_investment_I
+Additional investments Sensor Monitoring,Euro,additional costs to enable sensor monitoring,100,,500,posnorm,additional_investment_S
+Labor costs to maintain General Monitoring,Euro,monetary value reflecting the time spent by a person involved in maintaining monitoring,100,,1500,posnorm,labor_costs_G
+Labor costs to maintain Improved Monitoring,Euro,monetary value reflecting the time spent by a person involved in maintaining monitoring,500,,3500,posnorm,labor_costs_I
+Labor costs to maintain Sensor Monitoring,Euro,monetary value reflecting the time spent by a person involved in maintaining monitoring,500,,5000,posnorm,labor_costs_S
+Costs of data post processing General,Euro,costs of data post processing,0,,0,const,post_processing_costs_G
+Costs of data post processing Improved,Euro,costs of data post processing,0,,0,const,post_processing_costs_I
+Costs of data post processing Sensor,Euro,costs of data post processing,100,,500,posnorm,post_processing_costs_S
+Number of samples General,digit,number of samples General,2,,3,posnorm,sample_number_G
+Number of samples Improved,digit,number of samples Improved,2,,15,posnorm,sample_number_I
+Number of samples Sensor,digit,number of samples Sensor,2,,6,posnorm,sample_number_S
+Costs per lab sample,Euro,costs per lab sample,15,,70,posnorm,lab_costs_per_sample
+Plant value of discarded plant,Euro,value of each sampled plant,0.25,,0.6,posnorm,plant_value_of_discarded_plant
+Plant value of marketable plant with high A1 quality,Euro,value of each saved plant by monitoring approach,0.6,,0.9,posnorm,plant_value_of_A1_quality
+Number of high quality plants saved by General,digit,Number of high quality plants that can be saved by General monitoring approach,500,,6000,posnorm,Number_of_saved_high_quality_plants_G
+Number of high quality  plants saved by Improved,digit,Number of high quality plants that can be saved by Improved monitoring approach,2000,,18000,posnorm,Number_of_saved_high_quality_plants_I
+Number of high quality plants saved by Sensor,digit,Number of high quality plants that can be saved by Sensor monitoring approach,500,,10000,posnorm,Number_of_saved_high_quality_plants_S
+Adjustment in sample size General,%,adjustment in sample size General,0.1,,0.5,tnorm_0_1,adjustment_sample_size_G
+Adjustment in sample size Improved,%,adjustment in sample size Improved,0.1,,0.3,tnorm_0_1,adjustment_sample_size_I
+Adjustment in sample size Sensor,%,adjustment in sample size Sensor,0.1,,0.3,tnorm_0_1,adjustment_sample_size_S
+resource savings General,Euro,,100,,500,posnorm,resource_savings_G
+resource savings Improved,Euro,,500,,1000,posnorm,resource_savings_I
+resource savings Sensor,Euro,,500,,1000,posnorm,resource_savings_S
