@@ -26,7 +26,7 @@ Our legend file ```Legend_CBA.csv``` contains all variable descriptions that we 
 
 ### The R project
 
-```Supplementary_Ruett_2021_Agric_Syst.Rproj``` is where we stored our R project.
+```Supplementary_Ruett_Precision_Agriculture.Rproj``` is where we stored our R project.
 
 ### The RMarkdown file
 
