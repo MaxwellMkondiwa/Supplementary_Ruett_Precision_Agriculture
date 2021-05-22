@@ -1,5 +1,5 @@
 ---
-title: Assessing expected utility and profitability to support decision-making in ornamental heather production
+title: Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production
 author: Marius Ruett^a^, Tobias Dalhaus^b^, Cory Whitney^a,c^ and Eike Luedeling^a^ <br /> <small>^a^INRES-Horticultural Sciences, University of Bonn, Auf dem Huegel 6, 53121 Bonn, Germany <br /> ^b^Business Economics Group, University of Wageningen, Hollandseweg 1, 6706 KN Wageningen, Netherlands <br /> ^c^Center of Development Research (ZEF), University of Bonn, Genscherallee 3, 53113 Bonn, Germany<small/>
 csl: precision-agriculture.csl
 output: html_document 
@@ -29,11 +29,11 @@ options(knitr.table.format = "html")
 
 ```
 
-This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture/blob/main/README.md and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making in ornamental heather production` Ruett et al. (under review). Here we provide our input table, code and results to allow for transparent reproduction of the model. To create and organize this supplementary file we used the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019]. All other applied `R` packages are cited and listed in the [References].
+This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture/blob/main/README.md and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production` Ruett et al. (under review). Here we provide our input table, code and results to allow for transparent reproduction of the model. To create and organize this supplementary file we used the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019]. All other applied `R` packages are cited and listed in the [References].
 
 ## Input table for assessment of expected utility and profitability to support decision-making in ornamental heather production
 
-The input table [`Input_CBA.csv`](https://raw.githubusercontent.com/marruett/Supplementary_Ruett_2021_Agric_Syst/master/Input_CBA.csv?token=AESNHBRRYNOX4M2WUDZLCGDATKIII) contains: Variable names, unit, distributions (posnorm = positive normal distribution, const = constant, tnorm_0_1= truncated normal distribution), lower bound, mean, upper bound and definition of all the input variables for the model. The abbreviation `CBA` refers to `Cost Benefit Assessment`. 
+The input table `Input_CBA.csv` contains: Variable names, unit, distributions (posnorm = positive normal distribution, const = constant, tnorm_0_1= truncated normal distribution), lower bound, mean, upper bound and definition of all the input variables for the model. The abbreviation `CBA` refers to `Cost Benefit Assessment`. 
 
 ## Implementing the model in R
 
