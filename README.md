@@ -1,5 +1,5 @@
 # Supplementary_Ruett_Precision_Agriculture 
-This repository (LINK) contains files that contribute to our supplementary materials of the Manuscript: 'Assessing expected utility and profitability to support decision-making in ornamental heather production' by Marius Ruett, Tobias Dalhaus, Cory Whitney, and Eike Luedeling (under review 2021) (The DOI can be found here when published). 
+This repository (LINK) contains files that contribute to our supplementary materials of the Manuscript: 'Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production' by Marius Ruett, Tobias Dalhaus, Cory Whitney, and Eike Luedeling (under review 2021) (The DOI can be found here when published). 
 Within this repository we provide all necessary files to comprehend procedure of code calculations. We illustrate our code for data visualization that enables reproductivity of our figures. Code chunks can be used or optimized for own illustrations based on ```decisionSupport``` outcomes.
 
 ## File descriptions
