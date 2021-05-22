@@ -1,7 +1,7 @@
 # The success of ornamental heather (Calluna vulgaris) production 
 # is largely dependent on monitoring strategies within crop management.
 # In the following simulation we compare three monitoring strategies in a 
-# cost-benefit analysis: The currently applied monitoring strategy (General); 
+# cost-benefit analysis: The currently applied monitoring strategy (Baseline); 
 # More intensive monitoring (Improved); and the acquisition of a sensor for additional 
 # verification of plant vitality based on hyperspectral data (Sensor).
 
@@ -21,7 +21,7 @@ dir.create(EVPI_Results_folder)
 
 
 source("./Simulation_Function.R") # The Simulation function for simulation 
-# of 'General', 'Improved' and 'Sensor' monitoring.
+# of 'Baseline', 'Improved' and 'Sensor' monitoring.
 
 decisionSupport(inputFilePath = input_table, #input file with estimates
                 outputPath = MC_Results_folder, #output folder

@@ -29,7 +29,7 @@ options(knitr.table.format = "html")
 
 ```
 
-This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture/blob/main/README.md and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production` Ruett et al. (under review). Here we provide our input table, code and results to allow for transparent reproduction of the model. To create and organize this supplementary file we used the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019]. All other applied `R` packages are cited and listed in the [References].
+This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production` Ruett et al. (under review). Here we provide our input table, code and results to allow for transparent reproduction of the model. To create and organize this supplementary file we used the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019]. All other applied `R` packages are cited and listed in the [References].
 
 ## Input table for assessment of expected utility and profitability to support decision-making in ornamental heather production
 
