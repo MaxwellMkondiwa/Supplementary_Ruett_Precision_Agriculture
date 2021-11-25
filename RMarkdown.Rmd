@@ -33,7 +33,7 @@ This supplementary is available under https://github.com/marruett/Supplementary_
 
 ## Input table for assessment of expected utility and profitability to support decision-making in ornamental heather production
 
-The input table `Input_CBA.csv` contains: Variable names, unit, distributions (posnorm = positive normal distribution, const = constant, tnorm_0_1= truncated normal distribution), lower bound, mean, upper bound and definition of all the input variables for the model. The abbreviation `CBA` refers to `Cost Benefit Assessment`. 
+The input table `Input_CBA.csv` (attached) contains: Variable names, unit, distributions (posnorm = positive normal distribution, const = constant, tnorm_0_1= truncated normal distribution), lower bound, mean, upper bound and definition of all the input variables for the model. The abbreviation `CBA` refers to `Cost Benefit Assessment`. 
 
 ## Implementing the model in R
 
@@ -174,25 +174,25 @@ High risk years can increase sample size and resource use. Occurrence of high ri
 
 ```
 
-Here we simulated the `Cost_Benefit` function for standard monitoring (Baseline) and defined the result as 'cashflow_G'.
+Here we simulated the `Cost_Benefit` function for standard monitoring (Baseline) and defined the result as 'cashflow_B'.
 
 ```
 
-   cashflow_G <- Cost_Benefit(n_years = n_years,
+   cashflow_B <- Cost_Benefit(n_years = n_years,
                               highrisk_year = highrisk_year,
                               CV = var_CV,
                               area = production_area,
                               sample_costs = lab_costs_per_sample,
                               value_of_discarded_plant = plant_value_of_discarded_plant,
                               plant_value_of_A1_quality = plant_value_of_A1_quality,
-                              Initial_investment = Initial_investment_G , 
-                              additional_investment = additional_investment_G ,
-                              labor_costs = labor_costs_G,
-                              post_processing_costs = post_processing_costs_G,
-                              sample_number = sample_number_G,
-                              additional_saved_plants = Number_of_saved_high_quality_plants_G,
-                              adjustment_sample_size = adjustment_sample_size_G,
-                              resource_savings = resource_savings_G)
+                              Initial_investment = Initial_investment_B , 
+                              additional_investment = additional_investment_B ,
+                              labor_costs = labor_costs_B,
+                              post_processing_costs = post_processing_costs_B,
+                              sample_number = sample_number_B,
+                              additional_saved_plants = Number_of_saved_high_quality_plants_B,
+                              adjustment_sample_size = adjustment_sample_size_B,
+                              resource_savings = resource_savings_B)
 
 ```
 
@@ -200,7 +200,7 @@ Here we calculated the Net Present Value for 'Baseline' monitoring.
 
 ```
 
-  NPV_G <- discount(cashflow_G, discount_rate, calculate_NPV = TRUE)
+  NPV_B <- discount(cashflow_B, discount_rate, calculate_NPV = TRUE)
 
 ```
 
@@ -238,7 +238,7 @@ Here we calculated the Net Present Value for the decision to apply 'Improved' in
 
 ```
 
-  comp_NPV_IG <- NPV_I - NPV_G
+  comp_NPV_IB <- NPV_I - NPV_B
 
 ```
 
@@ -276,7 +276,7 @@ Here we calculated the Net Present Value for the decision to apply 'Sensor' inst
 
 ```
 
-  comp_NPV_SG <- NPV_S - NPV_G
+  comp_NPV_SB <- NPV_S - NPV_B
 
 ```
 
@@ -284,14 +284,14 @@ At the end of the `Simulation` function we listed all calculated outcomes.
 
 ```
 
-  return(list(cashflow_G = cashflow_G,
-              NPV_G = NPV_G,
+  return(list(cashflow_B = cashflow_B,
+              NPV_B = NPV_B,
               cashflow_I = cashflow_I,
               NPV_I = NPV_I, 
               cashflow_S = cashflow_S,
               NPV_S = NPV_S,
-              comp_NPV_IG = comp_NPV_IG,
-              comp_NPV_SG = comp_NPV_SG))
+              comp_NPV_IB = comp_NPV_IB,
+              comp_NPV_SB = comp_NPV_SB))
 }
 
 ```
@@ -327,7 +327,7 @@ We stored the Monte Carlo Simulation results into the MC_file and generate the E
 MC_file <- read.csv(paste(MC_Results_folder,"/mcSimulationResults.csv",sep = ""))
 
 MC_file_without_cashflow <- select(MC_file, -c(1, starts_with("cashflow")))
-multi_EVPI(mc = MC_file_without_cashflow,first_out_var = "NPV_G",
+multi_EVPI(mc = MC_file_without_cashflow,first_out_var = "NPV_B",
            write_table = TRUE,outfolder = EVPI_Results_folder)
 
 welfare_summary <- read.csv(paste(MC_Results_folder,"/welfareDecisionSummary.csv",sep = ""))
@@ -402,23 +402,23 @@ Simulation <- function(){
   
   highrisk_year <- chance_event(chance_high_risk, n = n_years)
   
-  cashflow_G <- Cost_Benefit(n_years = n_years,
+  cashflow_B <- Cost_Benefit(n_years = n_years,
                               highrisk_year = highrisk_year,
                               CV = var_CV,
                               area = production_area,
                               sample_costs = lab_costs_per_sample,
                               value_of_discarded_plant = plant_value_of_discarded_plant,
                               plant_value_of_A1_quality = plant_value_of_A1_quality,
-                              Initial_investment = Initial_investment_G , 
-                              additional_investment = additional_investment_G ,
-                              labor_costs = labor_costs_G,
-                              post_processing_costs = post_processing_costs_G,
-                              sample_number = sample_number_G,
-                              additional_saved_plants = Number_of_saved_high_quality_plants_G,
-                              adjustment_sample_size = adjustment_sample_size_G,
-                              resource_savings = resource_savings_G)
+                              Initial_investment = Initial_investment_B , 
+                              additional_investment = additional_investment_B ,
+                              labor_costs = labor_costs_B,
+                              post_processing_costs = post_processing_costs_B,
+                              sample_number = sample_number_B,
+                              additional_saved_plants = Number_of_saved_high_quality_plants_B,
+                              adjustment_sample_size = adjustment_sample_size_B,
+                              resource_savings = resource_savings_B)
   
-  NPV_G <- discount(cashflow_G, discount_rate, calculate_NPV = TRUE)
+  NPV_B <- discount(cashflow_B, discount_rate, calculate_NPV = TRUE)
   
   cashflow_I <- Cost_Benefit(n_years = n_years,
                               highrisk_year = highrisk_year,
@@ -438,7 +438,7 @@ Simulation <- function(){
 
   NPV_I <- discount(cashflow_I, discount_rate, calculate_NPV = TRUE)
 
-  comp_NPV_IG <- NPV_I - NPV_G
+  comp_NPV_IB <- NPV_I - NPV_B
 
   cashflow_S  <- Cost_Benefit(n_years = n_years,
                               highrisk_year = highrisk_year,
@@ -458,16 +458,16 @@ Simulation <- function(){
 
   NPV_S <- discount(cashflow_S, discount_rate, calculate_NPV = TRUE)
   
-  comp_NPV_SG <- NPV_S - NPV_G
+  comp_NPV_SB <- NPV_S - NPV_B
   
-  return(list(cashflow_G = cashflow_G,
-              NPV_G = NPV_G,
+  return(list(cashflow_B = cashflow_B,
+              NPV_B = NPV_B,
               cashflow_I = cashflow_I,
               NPV_I = NPV_I, 
               cashflow_S = cashflow_S,
               NPV_S = NPV_S,
-              comp_NPV_IG = comp_NPV_IG,
-              comp_NPV_SG = comp_NPV_SG))
+              comp_NPV_IB = comp_NPV_IB,
+              comp_NPV_SB = comp_NPV_SB))
 }
 
 decisionSupport(inputFilePath = input_table,
@@ -480,7 +480,7 @@ decisionSupport(inputFilePath = input_table,
 MC_file <- read.csv(paste(MC_Results_folder,"/mcSimulationResults.csv",sep = ""))
 
 MC_file_without_cashflow <- select(MC_file, -c(1, starts_with("cashflow")))
-multi_EVPI(mc = MC_file_without_cashflow,first_out_var = "NPV_G",
+multi_EVPI(mc = MC_file_without_cashflow,first_out_var = "NPV_B",
            write_table = TRUE,outfolder = EVPI_Results_folder)
 
 welfare_summary <- read.csv(paste(MC_Results_folder,"/welfareDecisionSummary.csv",sep = ""))
@@ -493,10 +493,10 @@ Here we calculated the expected utility for different monitoring strategies. Fir
 
 ```
 
-data_G <- read.csv("mcSimulationResults.csv")
-data_G <- dplyr::select(data_G, starts_with("NPV_G")) %>%
+data_B <- read.csv("mcSimulationResults.csv")
+data_B <- dplyr::select(data_B, starts_with("NPV_B")) %>%
   stack(drop=FALSE)
-data_G$values <- as.numeric(data_G$values)
+data_B$values <- as.numeric(data_B$values)
 
 data_I <- read.csv("mcSimulationResults.csv")
 data_I <- dplyr::select(data_I, starts_with("NPV_I")) %>%
@@ -514,7 +514,7 @@ Then we started the risk premium calculation for the monitoring strategies.
 
 ```
 
-risk_premium_G <-(1/2)*0.0001*var(data_G$values)
+risk_premium_B <-(1/2)*0.0001*var(data_B$values)
 
 risk_premium_I <-(1/2)*0.0001*var(data_I$values)
 
@@ -527,10 +527,10 @@ We calculated the semivariance for the monitoring strategies.
 ```
 
 for(z in 1 : 10000){
-  data_G$NewColumn[z] <- ifelse(min((data_G$values[z]- mean(data_G$values)),0) < 0,
-                                (data_G$values[z]- mean(data_G$values))^2, 0)
+  data_B$NewColumn[z] <- ifelse(min((data_B$values[z]- mean(data_B$values)),0) < 0,
+                                (data_B$values[z]- mean(data_B$values))^2, 0)
 }
-Semivaricance_G <- mean(data_G$NewColumn)
+Semivaricance_B <- mean(data_B$NewColumn)
 
 for(z in 1 : 10000){
   data_I$NewColumn[z] <- ifelse(min((data_I$values[z]- mean(data_I$values)),0) < 0,
@@ -552,8 +552,8 @@ Here we computed the certainty equivalents and the risk aversion coefficients an
 
 for(r in c(-1e-01, -1e-02, -1e-03, -1e-04, -1e-05, -1e-06, 0,
            1e-06,  1e-05, 1e-04, 1e-03, 1e-02, 1e-01)){
-  Certainty_equivalent_G_ <- mean(data_G$values) - Semivaricance_G * r
-  assign(paste("CE_G_", r, sep = ""), Certainty_equivalent_G_)
+  Certainty_equivalent_B_ <- mean(data_B$values) - Semivaricance_B * r
+  assign(paste("CE_B_", r, sep = ""), Certainty_equivalent_B_)
   
   Certainty_equivalent_I_ <- mean(data_I$values) - Semivaricance_I * r
   assign(paste("CE_I_", r, sep = ""), Certainty_equivalent_I_)
@@ -562,10 +562,10 @@ for(r in c(-1e-01, -1e-02, -1e-03, -1e-04, -1e-05, -1e-06, 0,
   assign(paste("CE_S_", r, sep = ""), Certainty_equivalent_S_)
 }
 
-Certainty_equivalent <- c(`CE_G_-0.1`, `CE_G_-0.01`, `CE_G_-0.001`, `CE_G_-1e-04`,
-                          `CE_G_-1e-05`, `CE_G_-1e-06`,`CE_G_0`, `CE_G_1e-06`,
-                          `CE_G_1e-05`, `CE_G_1e-04`, `CE_G_0.001`, `CE_G_0.01`,
-                          `CE_G_0.1`, `CE_I_-0.1`, `CE_I_-0.01`, `CE_I_-0.001`, 
+Certainty_equivalent <- c(`CE_B_-0.1`, `CE_B_-0.01`, `CE_B_-0.001`, `CE_B_-1e-04`,
+                          `CE_B_-1e-05`, `CE_B_-1e-06`,`CE_B_0`, `CE_B_1e-06`,
+                          `CE_B_1e-05`, `CE_B_1e-04`, `CE_B_0.001`, `CE_B_0.01`,
+                          `CE_B_0.1`, `CE_I_-0.1`, `CE_I_-0.01`, `CE_I_-0.001`, 
                           `CE_I_-1e-04`, `CE_I_-1e-05`, `CE_I_-1e-06`, `CE_I_0`,
                           `CE_I_1e-06`, `CE_I_1e-05`, `CE_I_1e-04`, `CE_I_0.001`,
                           `CE_I_0.01`, `CE_I_0.1`,`CE_S_-0.1`, `CE_S_-0.01`, `CE_S_-0.001`,
@@ -596,7 +596,7 @@ For data visualization we applied the `ggplot2` [@wickhamGgplot2ElegantGraphics2
 
 Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of the Net Present Value (Euros) for three heather monitoring strategies. **Baseline**: Current visual monitoring regime. **Improved**: More intensive visual monitoring. **Sensor**: Sensor-based monitoring.
 
-<img src="Plots/Fig_2.jpg" alt="Figure 2" width="500"/>
+<img src="Plots/Fig_2.png" alt="Figure 2" width="500"/>
 
 Stochastic efficiency with respect to a function (SERF) results for monitoring strategies Baseline, Improved, and Sensor. In the upper figure the y-axis is shown on a normal scale, while the lower figure uses a log-scale to zoom into the positive parts of the SERF functions. In the latter case negative values are dropped from the illustration, because negative certainty equivalent values imply that decision makers would not adopt an activity at all. 
 
@@ -610,7 +610,7 @@ Probability density distributions (scaled density among 10,000 runs of a Monte C
 
 Comparison of Information Value and Variable Importance for **DoMoreVisual** and **UseSensor**.
 
-<img src="Plots/Fig_4.png" alt="Figure 4" width=750"/>
+<img src="Plots/Fig_4.jpg" alt="Figure 4" width=750"/>
 
 Variable Importance in the Projection (VIP scores) and Information Value (EVPI values) for the **DoMoreVisual** and **UseSensor** decisions. For the Variable Importance, variables that have a positive impact on the projected NPVs are represented by blue bars, while those with a negative impact are represented by orange bars.
 

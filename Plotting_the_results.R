@@ -12,6 +12,7 @@ extrafont::loadfonts(device="win")
 extrafont::fonts()
 font_import()
 fonts()
+setwd("C:/Users/Marius/Dropbox/Contributions/Supplementary_Ruett_Precision_Agriculture")
 
 # Plot NPV Baseline ####
 data_G <- read.csv("MC_Results_CBA/mcSimulationResults.csv")
@@ -20,6 +21,9 @@ data_G <- dplyr::select(data_G, starts_with("NPV_G")) %>%
 data_G$values <- as.numeric(data_G$values) 
 distribution_G <- ggplot(data_G, aes(x = values, y = ind, fill = ind)) +
   geom_density(aes(y=..scaled..), alpha = 0.5) +
+  geom_errorbar(aes(y = 0.2, xmin = median(values) - sd(values),
+                    xmax = median(values) + sd(values)), width = 0.05, color = "red4") +
+  #geom_point(aes(y = 0.5, x = median(values))) +
   scale_fill_manual(labels = ("Baseline"), values = ("red4"),guide="legend") +
   geom_boxploth(aes(x = values, y = 0.2), width = 0.1, fill = "red4" ) +
   geom_vline(aes(xintercept = 0)) +
@@ -49,6 +53,9 @@ data_I <- dplyr::select(data_I, starts_with("NPV_I")) %>%
 data_I$values <- as.numeric(data_I$values) 
 distribution_I <- ggplot(data_I, aes(x = values, y = ind, fill = ind)) +
   geom_density(aes(y=..scaled..), alpha = 0.5) +
+  geom_errorbar(aes(y = 0.2, xmin = median(values) - sd(values),
+                    xmax = median(values) + sd(values)), width = 0.05, color = "blue4") +
+  #geom_point(aes(y = 0.5, x = median(values))) +
   scale_fill_manual(labels = ("Improved"), values = ("blue4"),guide="legend") +
   geom_boxploth(aes(x = values, y = 0.2), width = 0.1, fill = "blue4" ) +
   geom_vline(aes(xintercept = 0)) +
@@ -78,6 +85,9 @@ data_S <- dplyr::select(data_S, starts_with("NPV_S")) %>%
 data_S$values <- as.numeric(data_S$values) 
 distribution_S <- ggplot(data_S, aes(x = values, y = ind, fill = ind)) +
   geom_density(aes(y=..scaled..), alpha = 0.5) +
+  geom_errorbar(aes(y = 0.2, xmin = median(values) - sd(values),
+                    xmax = median(values) + sd(values)), width = 0.05, color = "yellow4") +
+  #geom_point(aes(y = 0.5, x = median(values))) +
   scale_fill_manual(labels = ("Sensor"), values = ("yellow3"),guide="legend") +
   geom_boxploth(aes(x = values, y = 0.2), width = 0.1, fill = "yellow3" ) +
   geom_vline(aes(xintercept = 0)) +
@@ -107,6 +117,9 @@ data_IG <- dplyr::select(data_IG, starts_with("comp_NPV_IG")) %>%
 data_IG$values <- as.numeric(data_IG$values) 
 distribution_IG <- ggplot(data_IG, aes(x = values, y = ind, fill = ind)) +
   geom_density(aes(y=..scaled..), alpha = 0.5) +
+  geom_errorbar(aes(y = 0.2, xmin = median(values) - sd(values),
+                    xmax = median(values) + sd(values)), width = 0.05, color = "darkorchid4") +
+  #geom_point(aes(y = 0.5, x = median(values))) +
   scale_fill_manual(labels = ("DoMoreVisual"), values = ("darkorchid4"),guide="legend") +
   geom_boxploth(aes(x = values, y = 0.2), width = 0.1, fill = "darkorchid4" ) +
   geom_vline(aes(xintercept = 0)) +
@@ -114,7 +127,7 @@ distribution_IG <- ggplot(data_IG, aes(x = values, y = ind, fill = ind)) +
   scale_x_continuous(labels = scales::dollar_format(suffix = "", prefix = ""),
                      limits = c(-750000,1200000))+
   annotate("text", x = 600000, y = 0.8, label = 'atop(bold("DoMoreVisual"))', 
-           size = 10, parse = TRUE,family="Times New Roman") +
+           size = 8, parse = TRUE,family="Times New Roman") +
   theme(text=element_text(family="Times New Roman"),
         axis.title=element_blank(),
         axis.text.x=element_text(colour = "white"),
@@ -136,6 +149,9 @@ data_SG <- dplyr::select(data_SG, starts_with("comp_NPV_SG")) %>%
 data_SG$values <- as.numeric(data_SG$values) 
 distribution_SG <- ggplot(data_SG, aes(x = values, y = ind, fill = ind)) +
   geom_density(aes(y=..scaled..), alpha = 0.5) +
+  geom_errorbar(aes(y = 0.2, xmin = median(values) - sd(values),
+                    xmax = median(values) + sd(values)), width = 0.05, color = "darkorange3") +
+  #geom_point(aes(y = 0.5, x = median(values))) +
   scale_fill_manual(labels = ("UseSensor"), values = ("darkorange3"),guide="legend") +
   geom_boxploth(aes(x = values, y = 0.2), width = 0.1, fill = "darkorange3" ) +
   geom_vline(aes(xintercept = 0)) +
@@ -143,7 +159,7 @@ distribution_SG <- ggplot(data_SG, aes(x = values, y = ind, fill = ind)) +
   scale_x_continuous(labels = scales::dollar_format(suffix = "", prefix = ""),
                      limits = c(-750000,1200000))+
   annotate("text", x = 600000, y = 0.8, label = 'atop(bold("UseSensor"))', 
-           size = 10, parse = TRUE,family="Times New Roman") +
+           size = 8, parse = TRUE,family="Times New Roman") +
   theme(text=element_text(family="Times New Roman"),
         axis.title=element_blank(),
         axis.text.x=element_text(),
@@ -179,11 +195,11 @@ two_NPV <- ggarrange(distribution_IG, distribution_SG, ncol = 1, nrow = 2)
 two_NPV <- annotate_figure(two_NPV,
                            left = text_grob("Scaled Density", 
                                             color = "black", rot = 90,
-                                            face = "bold", size =28, 
+                                            face = "bold", size =19, 
                                             family = "Times New Roman"),
-                           bottom = text_grob("Net Present Value (Euros)", color = "black", 
+                           bottom = text_grob("Difference between the NPVs of Baseline \n and the alternative strategies (Euros)", color = "black", 
                                               rot = 0,
-                                              face = "bold", size =28, 
+                                              face = "bold", size = 19, 
                                               family = "Times New Roman"))
 
 ggsave("./two_NPV.png", two_NPV, 
@@ -281,12 +297,12 @@ q <-  ggplot(IG, aes(x = Variable, y = EVPI, fill = EVPI))+
   theme(text=element_text(family="Times New Roman"),
         plot.title = element_text(hjust = 0.5,color = "white", size = 15, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5,color = "black", size = 15, face = "bold"),
-        axis.title.y = element_text(color="black", size=15), 
+    #    axis.title.y = element_text(color="black", size=15), 
         axis.text.y = element_blank(),
         axis.line.y.left = element_blank(),
         plot.margin = unit(c(1,1,1,1), "mm"),
         axis.text = element_text(size=15),
-        axis.title = element_text(size=15,face="bold"),
+        axis.title = element_text(color = "white", size=15,face="bold"),
         legend.position = "none") +
   coord_flip()
 
@@ -310,7 +326,7 @@ p <- ggplot(IG,aes(x=Variable,y=VIP))+
         plot.margin = unit(c(1,1,1,1), "mm"),
         axis.title.x=element_text(),
         axis.text = element_text(size=15),
-        axis.title = element_text(size=15,face="bold"),
+        axis.title = element_text(color = "white",size=15,face="bold"),
         panel.background = element_blank()) +
   scale_y_reverse(lim = c(6, 0)) +
   coord_flip()
@@ -318,12 +334,12 @@ p <- ggplot(IG,aes(x=Variable,y=VIP))+
 G.mid <- ggplot(IG,aes(x=1,y=Variable))+geom_text(aes(label=Variable))+
   geom_segment(aes(x=0,xend=0,yend=Variable))+
   geom_segment(aes(x=0,xend=0,yend=Variable))+
-  ggtitle("DoMoreVisual", subtitle = "Result probably positive") +
+  ggtitle("nothing", subtitle = "DoMoreVisual") +
   ylab(NULL)+
   scale_x_continuous(expand=c(0,0),limits=c(1.0,1.0))+
   theme(text=element_text(family="Times New Roman"),
-        plot.subtitle = element_text(hjust = 0.5,color = "darkgreen", size = 15, face = "bold"),
-        plot.title = element_text(hjust = 0.5, color = "black", size = 15, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5,color = "black", size = 15, face = "bold"),
+        plot.title = element_text(hjust = 0.5, color = "white", size = 15, face = "bold"),
         axis.title.y = element_text(color="black", size=15),
         axis.title=element_blank(),
         panel.grid=element_blank(),
@@ -346,21 +362,21 @@ SG$EVPI[is.na(SG$EVPI)] <- 0
 
 q <-  ggplot(SG, aes(x = Variable, y = EVPI, fill = EVPI))+
   geom_bar(width = 1, stat = "identity", color = "black", fill = "purple") +
-  ggtitle("Nothing", subtitle ="Information Value") +
-  theme_bw()+theme(panel.grid=element_line())+ 
-  ylab("EVPI")+ 
+ # ggtitle("Nothing", subtitle ="Information Value") +
+  theme_bw()+theme(panel.grid = element_line())+ 
+  ylab("EVPI value (Euros)")+ 
   xlab(NULL)+
   scale_y_continuous(labels = scales::dollar_format(suffix = "", prefix = ""),
                      limits = c(0, 16000), breaks = c(0,7500,15000)) +
   theme(text=element_text(family="Times New Roman"),
         plot.title = element_text(hjust = 0.5,color = "white", size = 15, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5,color = "black", size = 15, face = "bold"),
-        axis.title.y = element_text(color="black", size=15), 
+        #axis.title.y = element_text(color="red", size=15), 
         axis.text.y = element_blank(),
         axis.line.y.left = element_blank(),
         plot.margin = unit(c(1,1,1,1), "mm"),
         axis.text = element_text(size=15),
-        axis.title = element_text(size=15,face="bold"),
+        axis.title = element_text(color = "black",size=15,face="bold"),
         legend.position = "none") +
   coord_flip()
 
@@ -368,8 +384,8 @@ SG$X <- NULL
 SG$expected_gain <- NULL
 p <- ggplot(SG,aes(x=Variable,y=VIP))+
   geom_bar(width = 1,aes(fill=color),stat ="identity", color = "black")+ 
-  ggtitle("Nothing", subtitle ="Variable Importance") +
-  ylab("VIP")+
+ # ggtitle("Nothing", subtitle ="Variable Importance") +
+  ylab("VIP score")+
   xlab(NULL)+
   theme_bw()+theme(panel.grid=element_line())+
   scale_fill_manual(values = c("orange","steelblue1") )+
@@ -392,12 +408,12 @@ p <- ggplot(SG,aes(x=Variable,y=VIP))+
 G.mid <- ggplot(SG,aes(x=1,y=Variable))+geom_text(aes(label=Variable))+
   geom_segment(aes(x=0,xend=0,yend=Variable))+
   geom_segment(aes(x=0,xend=0,yend=Variable))+
-  ggtitle("UseSensor", subtitle = "Result probably negative") +
+  ggtitle("nothing", subtitle = "UseSensor") +
   ylab(NULL)+
   scale_x_continuous(expand=c(0,0),limits=c(1.0,1.0))+
   theme(text=element_text(family="Times New Roman"),
-        plot.subtitle = element_text(hjust = 0.5,color = "red", size = 15, face = "bold"),
-        plot.title = element_text(hjust = 0.5, color = "black", size = 15, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5,color = "black", size = 15, face = "bold"),
+        plot.title = element_text(hjust = 0.5, color = "white", size = 15, face = "bold"),
         axis.title.y = element_text(color="black", size=15),
         axis.title=element_blank(),
         panel.grid=element_blank(),
@@ -414,5 +430,5 @@ gg2 <- ggplot_gtable(ggplot_build(q))
 gg.mid <- ggplot_gtable(ggplot_build(G.mid))
 SG_plot <- cowplot::plot_grid(gg1,gg.mid,gg2, ncol = 3, align = "h")
 
-All_cowplot <- cowplot::plot_grid(IG_plot, SG_plot, ncol = 1, nrow = 2)
+All_cowplot <- cowplot::plot_grid(IG_plot, SG_plot, ncol = 1, nrow = 2)#, hjust = 15)
 ggsave("./All_cowplot.png", All_cowplot, device = "png", width = 19, dpi = 200, height = 16, units =  "cm")
