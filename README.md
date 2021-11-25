@@ -1,5 +1,5 @@
 # Supplementary_Ruett_Precision_Agriculture 
-This repository (LINK) contains files that contribute to our supplementary materials of the Manuscript: 'Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production' by Marius Ruett, Tobias Dalhaus, Cory Whitney, and Eike Luedeling (under review 2021) (The DOI can be found here when published). 
+This repository <a href="https://doi.org/10.5281/zenodo.4780875"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4780875.svg" alt="DOI"></a> contains files that contribute to our supplementary materials of the Manuscript: 'Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production' by Marius Ruett, Tobias Dalhaus, Cory Whitney, and Eike Luedeling (under review 2021) (The DOI of the Manuscript can be found here when published). 
 Within this repository we provide all necessary files to comprehend procedure of code calculations. We illustrate our code for data visualization that enables reproductivity of our figures. Code chunks can be used or optimized for own illustrations based on ```decisionSupport``` outcomes.
 
 ## File descriptions
@@ -26,7 +26,7 @@ Our legend file ```Legend_CBA.csv``` contains all variable descriptions that we 
 
 ### The R project
 
-```Supplementary_Ruett_2021_Agric_Syst.Rproj``` is where we stored our R project.
+```Supplementary_Ruett_Precision_Agriculture.Rproj``` is where we stored our R project.
 
 ### The RMarkdown file
 
