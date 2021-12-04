@@ -29,7 +29,7 @@ options(knitr.table.format = "html")
 
 ```
 
-This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production` Ruett et al. (under review). Here we provide our input table, code and results to allow for transparent reproduction of the model. To create and organize this supplementary file we used the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019]. All other applied `R` packages are cited and listed in the [References].
+This supplementary is available under https://github.com/marruett/Supplementary_Ruett_Precision_Agriculture and outlines the Decision Analysis approaches used in `Assessing expected utility and profitability to support decision-making for disease control strategies in ornamental heather production` Ruett et al. (under review in Precision Agriculture). Here the code is provided to allow for transparent reproduction of the model. To create and organize this supplementary file the packages `devtools` [@wickhamDevtoolsToolsMake2019], `knitr` [@xieKnitrGeneralPurposePackage2019], `kableExtra` [@zhuKableExtraConstructComplex2019] and `bookdown` [@xieBookdownAuthoringBooks2019] are used. All other applied `R` packages are cited and listed in the [References].
 
 ## Input table for assessment of expected utility and profitability to support decision-making in ornamental heather production
 
@@ -37,23 +37,9 @@ The input table `Input_CBA.csv` (attached) contains: Variable names, unit, distr
 
 ## Implementing the model in R
 
-Here we provide our mathematical model that enables simulation of decision outcomes.
-The calculations in this document are based on random draws from the distributions in the input table `Input_CBA.csv`. Explanations for code chunks are not part of the actual simulation. The following code descriptions will guide readers through our process of code development.
+Here the mathematical model that enables simulation of decision outcomes is provided. The calculations in this document are based on random draws from the distributions in the input table `Input_CBA.csv`. Explanations for code chunks are not part of the actual simulation. The following code descriptions guide readers through the process of code development.
 
-Load the input table `Input_CBA.csv` and make variables.
-
-```
-
-input_table <- "Input_CBA.csv"
-
-make_variables <- function(est,n = 1)
-{ x <- random(rho = est, n = n)
-for(i in colnames(x)) assign(i, as.numeric(x[1,i]),envir = .GlobalEnv)}
-make_variables(estimate_read_csv(input_table))
-
-```
-
-We generated a function called `Simulation` function wrapping another function called `Cost_Benefit` to evaluate the decision options in `decisionSupport` [@luedelingDecisionSupportQuantitativeSupport2021]. The `Cost_Benefit` function represents the code to compute the costs and benefits for a monitoring strategy over a determined time period. We were able to calculate the cashflow and the Net Present Value (NPV) for the three monitoring strategies since we wrapped the `Simulation` function around the `Cost_Benefit` function. The following calculations show how the functions are coded (see the entire function below). 
+A function called `Simulation` is generated to evaluate the decision options in `decisionSupport` [@luedelingDecisionSupportQuantitativeSupport2021]. Within this function the `Cost_Benefit` function represents the code to compute the costs and benefits for a monitoring strategy over a particular time period. The cashflow and the Net Present Value (NPV) are calculated for the three monitoring strategies by wrapping the Simulation function around the `Cost_Benefit` function. The following calculations show how the functions are coded (see the entire function below).
 
 ```
 
@@ -89,7 +75,7 @@ Simulation <- function(){
 
 ```
 
-First we defined the labor costs per area.
+First the labor costs per area are defined. Note that the `vv` function from the `decisionSupport` [@luedelingDecisionSupportQuantitativeSupport2021] is applied to introduce variability into the time series. This function produces a series of n values drawn from a normal distribution, with a mean corresponding to the specified input value (here labor_costs) and a coefficient of variation corresponding to the value of CV.
 
 ```
 
@@ -97,8 +83,7 @@ First we defined the labor costs per area.
 
 ```
 
-Then we defined the number of samples per hectare.
-We used the value varier function `vv()` from the `decisionSupport` package [@luedelingDecisionSupportQuantitativeSupport2021] to account for the yearly variation of e.g. taking samples under different risk conditions.
+Then the number of samples per hectare are defined.
 
 ```
 
@@ -107,7 +92,7 @@ We used the value varier function `vv()` from the `decisionSupport` package [@lu
 
 ```
 
-We defined the sample costs per hectare and the value of discarded plants per hectare for each year.
+The sample costs per hectare are defined and the value of discarded plants per hectare is defined for each year.
 
 ```
 
@@ -118,7 +103,7 @@ We defined the sample costs per hectare and the value of discarded plants per he
     
 ```    
 
-We defined the total labor and sample costs for the whole production system.
+The total labor and sample costs are defined for the whole production system.
 
 ```
 
@@ -128,7 +113,7 @@ We defined the total labor and sample costs for the whole production system.
 
 ```
 
-Here we defined the initial investment of the first year and additional investments (maintenance costs) of the following years. Then we summed up the labor and sample costs, the data post processing costs, the initial investment and the additional investments, and defined the result as the total costs.
+The initial investment of the first year and additional investments (maintenance costs) of the following years are defined. Then the labor and sample costs, the data post processing-costs, the initial investment and the additional investments are summed up. The result is defined as the total costs.
 
 ```
 
@@ -139,13 +124,12 @@ Here we defined the initial investment of the first year and additional investme
 
 ```
 
-Benefits of monitoring strategies consist of resource savings that are achieved in normal risk years and the value of saved plants in high risk years. 
+Benefits of monitoring strategies consist of resource savings that are achieved in normal-risk years and the value of saved plants in high-risk years.
+In normal-risk years the number of fungicide applications can be reduced to some extent, because more monitoring increases knowledge about plant health status in the field. Therefore, resource savings can be achieved in these years.
+Although monitoring allows for resource savings in normal-risk years, no resource savings are achieved in high-risk years because a higher number of pesticide applications is required. However, thanks to more precise knowledge about the spatial distribution of plant vitality producers are able to protect the quality of more plants, which are safely cultivated until they are sold.
 
-In normal risk years the number of frequent fungicide applications can be reduced to some extent, because more monitoring increases knowledge about plant health  status in the field. Therefore, resource savings can be achieved in these years.
-    
-Although monitoring allows for resource savings in normal risk years, no resource savings are achieved in high risk years because a higher number of pesticide applications is required. However, thanks to more precise knowledge about spatially distributed plant vitality, producers are able to protect quality of more plants, which are safely cultivated until they are sold.
 
-We defined the resource savings in normal risk years and the value of saved high quality plants in high risk years. We summed up these monetary values and defined the result as the total benefits.
+The resource savings in normal-risk years and the value of saved high-quality plants in high-risk years are defined. These monetary values are summed up and the result is defined as the total benefits.
 
 ```
 
@@ -158,7 +142,7 @@ We defined the resource savings in normal risk years and the value of saved high
 
 ```
 
-In the return command we defined the output of the of the `Cost_Benefit` function as cashflow.
+In the return command the output of the `Cost_Benefit` function is defined as cashflow.
 
 ```
 
@@ -166,7 +150,7 @@ In the return command we defined the output of the of the `Cost_Benefit` functio
 
 ```
 
-High risk years can increase sample size and resource use. Occurrence of high risk years was defined using the chance_event function from `decisionSupport` [@luedelingDecisionSupportQuantitativeSupport2021]. The chance of a high-risk year occurring (chance_high_risk) was defined in the input table as a probability of 40% to 60%, reflecting the uncertainty for risky weather events.
+High-risk years can increase sample size and resource use. Occurrence of high-risk years is defined using the chance_event function from `decisionSupport` [@luedelingDecisionSupportQuantitativeSupport2021]. The chance of a high-risk year occurring (chance_high_risk) is defined in the input table as a probability of 40% to 60%, reflecting the probability of risky weather.
 
 ```
 
@@ -174,7 +158,7 @@ High risk years can increase sample size and resource use. Occurrence of high ri
 
 ```
 
-Here we simulated the `Cost_Benefit` function for standard monitoring (Baseline) and defined the result as 'cashflow_B'.
+The `Cost_Benefit` function is simulated for standard monitoring (Baseline) and the result is defined as 'cashflow_B'.
 
 ```
 
@@ -196,7 +180,7 @@ Here we simulated the `Cost_Benefit` function for standard monitoring (Baseline)
 
 ```
 
-Here we calculated the Net Present Value for 'Baseline' monitoring.
+The Net Present Value is calculated for 'Baseline' monitoring.
 
 ```
 
@@ -204,7 +188,7 @@ Here we calculated the Net Present Value for 'Baseline' monitoring.
 
 ```
 
-Here we simulated the `Cost_Benefit` function for more intense monitoring (Improved) and defined the result as 'cashflow_I'.
+The `Cost_Benefit` function is run for more intense monitoring (Improved) and the result is defined as 'cashflow_I'.
 
 ```
 
@@ -226,7 +210,7 @@ Here we simulated the `Cost_Benefit` function for more intense monitoring (Impro
 
 ```
 
-Here we calculated the Net Present Value for 'Improved' monitoring.
+The Net Present Value is calculated for 'Improved' monitoring.
  
 ```
 
@@ -242,7 +226,7 @@ Here we calculated the Net Present Value for the decision to apply 'Improved' in
 
 ```
 
-Here we simulated the `Cost_Benefit` function for monitoring with sensor technology (Sensor) and defined the result as 'cashflow_S'.
+The Cost_Benefit function is run for monitoring with sensor technology (Sensor) and the result is defined as 'cashflow_S'.
 
 ```
 
@@ -264,7 +248,7 @@ Here we simulated the `Cost_Benefit` function for monitoring with sensor technol
 
 ```
 
-Here we calculated the Net Present Value for 'Sensor' monitoring.
+The Net Present Value is calculated for 'Sensor' monitoring.
 
 ```
 
@@ -272,7 +256,7 @@ NPV_S <- discount(cashflow_S, discount_rate, calculate_NPV = TRUE)
 
 ```
 
-Here we calculated the Net Present Value for the decision to apply 'Sensor' instead of 'Baseline' monitoring.
+The Net Present Value is calculated for the decision to apply 'Sensor' instead of 'Baseline' monitoring.
 
 ```
 
@@ -280,7 +264,7 @@ Here we calculated the Net Present Value for the decision to apply 'Sensor' inst
 
 ```
 
-At the end of the `Simulation` function we listed all calculated outcomes.
+At the end of the `Simulation` function all calculated outcomes are listed.
 
 ```
 
@@ -296,7 +280,7 @@ At the end of the `Simulation` function we listed all calculated outcomes.
 
 ```
 
-Here we defined legend file, results folder and figures folder.
+The legend file, Monte Carlo results folder, and EVPI results folder are defined.
 
 ```
 
@@ -306,7 +290,7 @@ EVPI_Results_folder <- "EVPI_Results_CBA"
 
 ```
 
-The `decisionSupport` function facilitated the start of the Monte Carlo simulation.
+The `decisionSupport` function facilitated to run the Monte Carlo simulation.
 
 ```
 
@@ -319,8 +303,7 @@ decisionSupport(inputFilePath = input_table,
 
 ```
 
-We produced all outcome variables with the `decisionSupport` function.
-We stored the Monte Carlo Simulation results into the MC_file and generate the EVPI files. 
+All outcome variables are produced with the `decisionSupport` function. The Monte Carlo Simulation results are stored in the MC_file and generate the EVPI files.
 
 ```
 
@@ -336,7 +319,7 @@ welfare_summary <- read.csv(paste(MC_Results_folder,"/welfareDecisionSummary.csv
 
 # R function: Simulation
 
-Here our code is shown at one piece for an overview of all calculations.
+Here the code is shown in one piece for an overview of all calculations.
 
 ```
 
@@ -489,7 +472,7 @@ welfare_summary <- read.csv(paste(MC_Results_folder,"/welfareDecisionSummary.csv
 
 # Calculation of the expected utility
 
-Here we calculated the expected utility for different monitoring strategies. First, we loaded the simulation results into the R environment. We used the package `dyplyr` [@wickhamDplyrGrammarData2019] to select the simulated Net Present Values from each monitoring strategy.
+The expected utility is calculated for different monitoring strategies. First, the simulation results are loaded into the R environment. The select function from the  `dplyr` [@wickhamDplyrGrammarData2019] is used to select the simulated Net Present Values for each monitoring strategy.
 
 ```
 
@@ -510,7 +493,7 @@ data_S$values <- as.numeric(data_S$values)
 
 ```
 
-Then we started the risk premium calculation for the monitoring strategies.
+Then the risk premium calculation is started for the monitoring strategies.
 
 ```
 
@@ -522,7 +505,7 @@ risk_premium_S <-(1/2)*0.0001*var(data_S$values)
 
 ```
 
-We calculated the semivariance for the monitoring strategies.
+The semivariance is calculated for the monitoring strategies.
 
 ```
 
@@ -546,7 +529,7 @@ Semivaricance_S <- mean(data_S$NewColumn)
 
 ```
 
-Here we computed the certainty equivalents and the risk aversion coefficients and stored the results in a data frame called `risk_aversion_data`.
+The certainty equivalents and the risk aversion coefficients are computed and the results are stored in a data frame called `risk_aversion_data`.
 
 ```
 
@@ -588,23 +571,23 @@ risk_aversion_data <- data.frame(Certainty_equivalent, risk_aversion_coefficient
 
 The following plots are generated from the `mcSimulationResults.csv` from the `decisionSupport` function.
 
-We plotted probability distributions and merged them to illustrate the frequency of Monte Carlo simulation outcomes. Additionally, we integrated boxplots to compare Net Present Values of **Baseline**, **Improved**, and **Sensor**.
+Probability distributions were plotted and merged to illustrate the frequency of Monte Carlo simulation outcomes. Additionally, boxplots were integrated to compare Net Present Values of **Baseline**, **Improved**, and **Sensor**.
 
-For data visualization we applied the `ggplot2` [@wickhamGgplot2ElegantGraphics2016], `ggstance` [@henryGgstanceHorizontalGgplot22019] and `dplyr` [@wickhamDplyrGrammarData2019] packages. We used the function `ggarrange` from the `ggpubr` package [@kassambaraGgpubrGgplot2Based2019] to merge figures. 
+For data visualization, the `ggplot2` [@wickhamGgplot2ElegantGraphics2016], `ggstance` [@henryGgstanceHorizontalGgplot22019] and `dplyr` [@wickhamDplyrGrammarData2019] packages were applied. The function `ggarrange` from the `ggpubr` package [@kassambaraGgpubrGgplot2Based2019] was used to merge figures. 
 
 <img src="Plots/Fig_1.png" alt="Figure 1" width="400"/>
 
-Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of the Net Present Value (Euros) for three heather monitoring strategies. **Baseline**: Current visual monitoring regime. **Improved**: More intensive visual monitoring. **Sensor**: Sensor-based monitoring.
+Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of the Net Present Value (Euros) for three heather monitoring strategies. **Baseline**: Current visual monitoring regime. **Improved**: More intensive visual monitoring. **Sensor**: Sensor-based monitoring. The short vertical lines on the whiskers of the box plots indicate the standard deviation of the NPV for each strategy
 
 <img src="Plots/Fig_2.png" alt="Figure 2" width="500"/>
 
-Stochastic efficiency with respect to a function (SERF) results for monitoring strategies Baseline, Improved, and Sensor. In the upper figure the y-axis is shown on a normal scale, while the lower figure uses a log-scale to zoom into the positive parts of the SERF functions. In the latter case negative values are dropped from the illustration, because negative certainty equivalent values imply that decision makers would not adopt an activity at all. 
+Stochastic efficiency with respect to a function (SERF) for monitoring strategies Baseline, Improved, and Sensor. In the upper figure the y-axis is shown on a normal scale, while the lower figure uses a log-scale to zoom into the positive parts of the SERF functions. In the latter case negative values are dropped from the illustration, because negative certainty equivalent values imply that decision-makers would not adopt an activity at all  
 
 We plotted probability distributions and merged them to illustrate the frequency of Monte Carlo simulation outcomes. Additionally, we integrated boxplots to compare Net Present Values of **DoMoreVisual** and **UseSensor**.
 
 <img src="Plots/Fig_3.png" alt="Figure 3" width="400"/>
 
-Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of Net Present Values (Euros) for two heather monitoring decisions. **DoMoreVisual**: More intensive visual monitoring compared to the current monitoring regime. **UseSensor**: Sensor-based monitoring compared to the current monitoring regime.
+Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of Net Present Values (Euros) for two heather monitoring decisions. **DoMoreVisual**: More intensive visual monitoring compared to the current monitoring regime. **UseSensor**: Sensor-based monitoring compared to the current monitoring regime.The short vertical lines on the whiskers of the box plots indicate the standard deviation of the NPV for each strategy
 
 # EVPI and VIP analysis of management decisions
 
@@ -612,11 +595,11 @@ Comparison of Information Value and Variable Importance for **DoMoreVisual** and
 
 <img src="Plots/Fig_4.jpg" alt="Figure 4" width=750"/>
 
-Variable Importance in the Projection (VIP scores) and Information Value (EVPI values) for the **DoMoreVisual** and **UseSensor** decisions. For the Variable Importance, variables that have a positive impact on the projected NPVs are represented by blue bars, while those with a negative impact are represented by orange bars.
+Variable Importance in the Projection (VIP scores) and Information Value (EVPI values) for the **DoMoreVisual** and **UseSensor** decisions. For the Variable Importance, only variables with VIP scores >1 are shown. Variables that have a positive impact on the projected NPVs are represented by blue bars and a positive sign ‘+’, while those with a negative impact are represented by orange bars and a negative sign ‘-’.
 
 # Acknowledgements
 
-We particularly acknowledge the heather farmers Gerd Canders, Tom Canders (Europlant Canders GmbH, Straelen, Germany), Matthias Küppers and Verena Zachau Küppers (Jungpflanzen Küppers GbR, Wachtendonk, Germany) for their participation and contributions throughout the research process. We thank Peter Tiede-Arlt, Rainer Peters and Torsten Wolf (Landwirtschaftskammer Nordrhein-Westfalen) for their commitment and advice in this study.
+The authors acknowledge the heather farmers Gerd Canders, Tom Canders (Europlant Canders GmbH, Straelen, Germany), Matthias Küppers and Verena Zachau Küppers (Jungpflanzen Küppers GbR, Wachtendonk, Germany) for their participation and contributions throughout the research process. They are also grateful to Peter Tiede-Arlt, Rainer Peters and Torsten Wolf (Landwirtschaftskammer Nordrhein-Westfalen) for their commitment and advice.
 
 # Funding
 
