@@ -587,7 +587,7 @@ We plotted probability distributions and merged them to illustrate the frequency
 
 <img src="Plots/Fig_3.png" alt="Figure 3" width="400"/>
 
-Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of Net Present Values (Euros) for two heather monitoring decisions. **DoMoreVisual**: More intensive visual monitoring compared to the current monitoring regime. **UseSensor**: Sensor-based monitoring compared to the current monitoring regime.The short vertical lines on the whiskers of the box plots indicate the standard deviation of the NPV for each strategy
+Probability density distributions (scaled density among 10,000 runs of a Monte Carlo simulation) of Net Present Values (Euros) for two heather monitoring decisions. **DoMoreVisual**: More intensive visual monitoring compared to the current monitoring regime. **UseSensor**: Sensor-based monitoring compared to the current monitoring regime.The short vertical lines on the whiskers of the box plots indicate the standard deviation of the NPV for each decision
 
 # EVPI and VIP analysis of management decisions
 
@@ -595,7 +595,7 @@ Comparison of Information Value and Variable Importance for **DoMoreVisual** and
 
 <img src="Plots/Fig_4.jpg" alt="Figure 4" width=750"/>
 
-Variable Importance in the Projection (VIP scores) and Information Value (EVPI values) for the **DoMoreVisual** and **UseSensor** decisions. For the Variable Importance, only variables with VIP scores >1 are shown. Variables that have a positive impact on the projected NPVs are represented by blue bars and a positive sign ‘+’, while those with a negative impact are represented by orange bars and a negative sign ‘-’.
+Variable Importance in the Projection (VIP scores) and Information Value (EVPI values) for the **DoMoreVisual** and **UseSensor** decisions. For the Variable Importance, only variables with VIP scores >1 are shown. Variables that have a positive impact on the projected NPVs are represented by blue bars and a positive sign ‘+’, while those with a negative impact are represented by orange bars and a negative sign ‘-’
 
 # Acknowledgements
 
